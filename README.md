@@ -1,6 +1,6 @@
 # IHSetDean
 
-Miller and Dean (2004) proposed a simple model for shoreline evolution using several field datasets. The model is developed based on the observation that shoreline positions change as a function of an equilibrium position. The model includes three adjustable parameters that represent the baseline conditions under which shoreline displacement is calculated to minimize the error. This model is very efficient because it only represents the shoreline response to the process and only requires input of readily available storm surge and water level data.
+Dean (1991) have proposed the concept of an equilibrium beach profile. Dean (1991) derived the equilibrium beach profile model with the wave energy dissipation similar to other previous works (e.g., Bruun, 1954). The equilibrium beach profile equation is very simple, but has been used by many researchers for coastal engineering.
 
 
 ## Installation and use
