@@ -1,24 +1,26 @@
-from scipy import io
-import numpy as np
 from IHSetDean import IHSetDean
-from scipy.interpolate import interp1d
+import xarray as xr
+import os
+import matplotlib.pyplot as plt
 
+config = xr.Dataset(coords={'dy': 0.001,            # Calibrate 
+                            'Ymin': -20,            # Calibrate the minimum value
+                            'Ymax': 20,             # Calibrate the maximum value
+                            })
 
-def test_Dean():
+wrkDir = os.getcwd()
+config.to_netcdf(wrkDir+'/data/config.nc', engine='netcdf4')
+model = IHSetDean.cal_Dean(wrkDir+'/data/')
+self = IHSetDean.Dean(model.calibrate())
 
-    perfil = io.loadmat("./data/perfiles_cierre.mat")
-    p = 0
-    d = perfil["perfil"]["d"][0][p].flatten()
-    d = d - d[0]
-    z = perfil["perfil"]["z"][0][p].flatten()
-    CM = perfil["perfil"]["CM_95"][0][p].flatten()
-    z = z - CM
-    di = np.linspace(d[0], d[-1], 100)
-    z = interp1d(d, z, kind="linear", fill_value="extrapolate")(di)
-    d = di
+plt.rcParams.update({'font.family': 'serif'})
+plt.rcParams.update({'font.size': 7})
+plt.rcParams.update({'font.weight': 'bold'})
+font = {'family': 'serif',
+        'weight': 'bold',
+        'size': 8}
 
-    D50 = perfil["perfil"]["D50"][0][p].flatten()
-
-    # Assuming the 'ajuste_perfil' function is defined as in the previous code
-    pDeank, mDeank = IHSetDean.Dean(d, z, D50)
-    assert pDeank["RMSE"][0] == 0.4840710371023019
+hk = []
+hk.append(plt.plot(self.dp, self.zp, '--k')[0])
+hk.append(plt.plot(self.dp, self.hm, linewidth=2)[0])
+plt.show()

@@ -23,7 +23,7 @@ classifiers = [
 ]
 dynamic = ["version", "description"]
 
-dependencies = ["numpy", "pytest >=7", "scipy"]
+dependencies = ["numpy", "pytest >=7", "scipy", "xarray"]
 
 
 [project.optional-dependencies]
