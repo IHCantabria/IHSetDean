@@ -19,6 +19,8 @@ class cal_Dean(object):
                 
         self.Ymin = cfg['Ymin'].values
         self.Ymax = cfg['Ymax'].values
+        self.Dmin = cfg['Dmin'].values
+        self.Dmax = cfg['Dmax'].values
         self.dY = cfg['dy'].values
         self.D50 = ens['D50'].values
         self.dp = ens['d'].values
@@ -29,7 +31,7 @@ class cal_Dean(object):
         self.d = self.dp - self.dp[0]
 
         # Profile with equidistant points
-        dp = np.linspace(0, self.dp[-1], 500).reshape(-1, 1)
+        dp = np.linspace(self.Dmin, self.Dmax, 500).reshape(-1, 1)
         interp_func = interp1d(self.d, self.zp, kind="linear", fill_value="extrapolate")
         zp = interp_func(dp)
         zp = zp[1:]
