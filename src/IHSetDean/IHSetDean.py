@@ -1,6 +1,7 @@
 import numpy as np
 from scipy.interpolate import interp1d
 import xarray as xr
+from IHSetUtils import wMOORE
 
 class cal_Dean(object):
     """
@@ -36,7 +37,7 @@ class cal_Dean(object):
 
         ws = None
         if self.D50 is not None:
-            ws = caida_grano(self.D50)
+            ws = wMOORE(self.D50)
 
         Y = np.log(-zp)
         Y2 = 2 / 3 * np.log(dp)
@@ -44,6 +45,9 @@ class cal_Dean(object):
         fc = np.arange(self.Ymin, self.Ymax, self.dY)
         Y2_grid, fc_grid = np.meshgrid(Y2, fc, indexing="ij")
         Y2t = fc_grid + Y2_grid
+        
+        def RMSEq(Y, Y2t):
+            return np.sqrt(np.mean((Y - Y2t) ** 2, axis=0))
 
         out = RMSEq(Y, Y2t)
         I = np.argmin(out)
@@ -53,20 +57,7 @@ class cal_Dean(object):
         self.dp_value = dp
         
         return self
-    
-def caida_grano(D50):
-    ws = np.nan
-    if D50 < 0.1:
-        ws = 1.1e6 * (D50 * 0.001) ** 2
-    elif 0.1 <= D50 <= 1:
-        ws = 273 * (D50 * 0.001) ** 1.1
-    elif D50 > 1:
-        ws = 4.36 * D50**0.5
-    return ws
-
-def RMSEq(Y, Y2t):
-    return np.sqrt(np.mean((Y - Y2t) ** 2, axis=0))
-    
+        
 def Dean(self):
     
     self.hm = -self.A * self.dp ** (2 / 3)

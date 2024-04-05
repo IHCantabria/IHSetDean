@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 config = xr.Dataset(coords={'dy': 0.001,            # Calibrate 
                             'Ymin': -20,            # Calibrate the minimum value
-                            'Ymax': 20,             # Calibrate the maximum value
+                            'Ymax': 0,              # Calibrate the maximum value
                             })
 
 wrkDir = os.getcwd()
@@ -23,4 +23,6 @@ font = {'family': 'serif',
 hk = []
 hk.append(plt.plot(self.dp, self.zp, '--k')[0])
 hk.append(plt.plot(self.dp, self.hm, linewidth=2)[0])
+plt.xlabel('Distance [m]', fontdict=font)
+plt.ylabel('Water depth [m]', fontdict=font)
 plt.show()
