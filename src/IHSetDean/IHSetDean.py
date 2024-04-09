@@ -17,11 +17,8 @@ class cal_Dean(object):
         cfg = xr.open_dataset(path+'config.nc')
         ens = xr.open_dataset(path+'ens.nc')
                 
-        self.Ymin = cfg['Ymin'].values
-        self.Ymax = cfg['Ymax'].values
         self.Dmin = cfg['Dmin'].values
         self.Dmax = cfg['Dmax'].values
-        self.dY = cfg['dy'].values
         self.D50 = ens['D50'].values
         self.dp = ens['d'].values
         self.zp = ens['z'].values
@@ -44,10 +41,10 @@ class cal_Dean(object):
         Y = np.log(-zp)
         Y2 = 2 / 3 * np.log(dp)
 
-        fc = np.arange(self.Ymin, self.Ymax, self.dY)
+        fc = np.arange(-20, 20, 0.0001)
         Y2_grid, fc_grid = np.meshgrid(Y2, fc, indexing="ij")
         Y2t = fc_grid + Y2_grid
-        
+                
         def RMSEq(Y, Y2t):
             return np.sqrt(np.mean((Y - Y2t) ** 2, axis=0))
 

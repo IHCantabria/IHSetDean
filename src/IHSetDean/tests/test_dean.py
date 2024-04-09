@@ -3,11 +3,8 @@ import xarray as xr
 import os
 import matplotlib.pyplot as plt
 
-config = xr.Dataset(coords={'dy': 0.001,            # Calibrate 
-                            'Ymin': -20,            # Calibrate the minimum initial distance value
-                            'Ymax': 20,              # Calibrate the maximum initial distance value
-                            'Dmin': 0,              # Calibrate the minimum observed distnace value
-                            'Dmax': 20,              # Calibrate the maximum observed distance value
+config = xr.Dataset(coords={'Dmin': 0,                # Calibrate the minimum observed distnace value
+                            'Dmax': 25,               # Calibrate the maximum observed distance value
                             })
 
 wrkDir = os.getcwd()
