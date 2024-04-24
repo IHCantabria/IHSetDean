@@ -8,18 +8,18 @@ Dean (1991) have proposed the concept of an equilibrium beach profile. Dean (199
 To install this module use:
 
 ```sh
-pip install https://github.com/IHCantabria/IHSetBernabeu/archive/refs/tags/latest.zip
+pip install https://github.com/IHCantabria/IHSetDean/archive/refs/tags/latest.zip
 ```
 
 Run tests to validate:
 
 ```sh
-ihsetbernabeu-tests
+ihsetdean-tests
 ```
 
 ## Documentation
 
-Documentation is available at https://ihcantabria.github.io/IHSetBernabeu
+Documentation is available at https://ihcantabria.github.io/IHSetDean
 
 ## Credits
 
