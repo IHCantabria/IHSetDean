@@ -1,4 +1,4 @@
-# IHSetDean
+# IHSetBernabeu
 
 ## Summary
 
@@ -6,12 +6,16 @@ Dean (1991) have proposed the concept of an equilibrium beach profile. Dean (199
 
 ## Model formula
 
-Dean (1991) suggested an equilibrium beach profile model based on the wave energy dissipation as follows:
+Dean (1991) suggested a simple equilibrium beach profile equation based on the wave energy dissipation as follows:
 
 ```text
 h=Ay^(2/3)
 
 h : the water depth
-y : the offshore distance
-A : the beach scale factor
+y : the seaward distance
+A : the Dean parameter
 ```
+
+![Definition sketch of equilibrium beach profile model](_static/images/Imagen1.png)
+
+Fig. Definition sketch of equilibrium beach profile model (Dean, 1991).

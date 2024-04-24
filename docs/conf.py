@@ -5,10 +5,10 @@
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
-from IHSetDean.__init__ import __version__
+# from IHSetBernabeu.__init__ import __version__
 
-
-project = "IHSetDean"
+__version__ = "0.1.0"
+project = "IHSetBernabeu"
 copyright = "2024, Lim, Changbin"
 author = "Lim, Changbin"
 version = release = __version__
@@ -16,7 +16,7 @@ version = release = __version__
 html_context = {
     "display_github": True,  # Integrate GitHub
     "github_user": "ihcantabria",  # Username
-    "github_repo": "IHSetDean",  # Repo name
+    "github_repo": "IHSetBernabeu",  # Repo name
     "github_version": "main",  # Version
     "conf_py_path": "/docs/",
 }
