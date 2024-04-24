@@ -12,7 +12,7 @@ class cal_Dean(object):
     
     This class reads input datasets, performs its calibration.
     """
-    def __init__(self, path_prof, path_wav, Switch_Calibrate, Switch_Cal_DoC, **kwargs):
+    def __init__(self, path_prof, path_wav, Switch_Plot_prof, Switch_Calibrate, Switch_Cal_DoC, **kwargs):
         self.path_prof = path_prof
         self.path_wav = path_wav
         prof = pd.read_csv(path_prof)
@@ -20,16 +20,17 @@ class cal_Dean(object):
         self.MSL = -kwargs['MSL']       
         self.xm = np.linspace(kwargs['Xm'][0], kwargs['Xm'][1], 1000).reshape(-1, 1)
 
+        self.Switch_Plot_prof = Switch_Plot_prof
         self.Switch_Calibrate = Switch_Calibrate
         # Calibrate Dean parameter using profile data [0: no without obs (using D50); 1: no with obs (using D50); 2: yes (using Obs)]
-        if Switch_Calibrate == 1 or Switch_Calibrate == 2:
+        if Switch_Plot_prof == 1:
             self.xp = prof.iloc[:, 0]
             self.zp = prof.iloc[:, 1]
             self.zp = abs(self.zp)
             xp_inx = self.xp[(self.zp >= self.MSL)]
             self.xp = self.xp - min(xp_inx)
             
-        if Switch_Calibrate == 2:
+        if Switch_Calibrate == 1:
             self.Zmin = kwargs['Zmin']
             self.Zmax = kwargs['Zmax']
             
@@ -43,7 +44,7 @@ class cal_Dean(object):
             
             H12,T12 = Hs12Calc(Hs,Tp)
             self.DoC = depthOfClosure(H12,T12)
-            # self.DoC = self.DoC[0]
+            self.DoC = self.DoC[0]
                             
     def calibrate(self):
         

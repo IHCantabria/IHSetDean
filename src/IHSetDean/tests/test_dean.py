@@ -1,9 +1,9 @@
-from IHSetDean import IHSetDean
 import os
 import matplotlib.pyplot as plt
+from IHSetDean import IHSetDean
 
 wrkDir = os.getcwd()
-model = IHSetDean.cal_Dean(wrkDir+'/data/prof.csv',wrkDir+'/data/wav.nc', 2, 1, Xm = [0, 500], Zmin = 0.0, Zmax = 1.0, D50 = 0.5, MSL = 0.0)
+model = IHSetDean.cal_Dean(wrkDir+'/data/prof.csv',wrkDir+'/data/wav.nc', 1, 1, 1, Xm = [0, 500], Zmin = 0.0, Zmax = 1.0, D50 = 0.5, MSL = 0.0)
 self = IHSetDean.Dean(model.calibrate())
 
 plt.rcParams.update({'font.family': 'serif'})
@@ -38,10 +38,10 @@ if self.Switch_Cal_DoC == 1:
         plt.xlim([self.xm[0]-20,xm_DoC_fill[-1]+20])
         plt.ylim([self.MSL-1,self.DoC+0.5])
         
-if self.Switch_Calibrate == 2:
+if self.Switch_Calibrate == 1:
         plt.fill([min(self.xm), min(self.xm), max(self.xm), max(self.xm)],
-                 [self.Zmin, self.Zmax, self.Zmax, self.Zmin], color=[0.5, 0.5, 0.5], alpha=0.25)
-if self.Switch_Calibrate == 1 or self.Switch_Calibrate == 2:
+                 [self.Zmin, self.Zmax, self.Zmax, self.Zmin], color=[0.5, 0.5, 0.5], alpha=0.25, label='Calibration')
+if self.Switch_Plot_prof == 1:
         plt.plot(self.xp, self.zp, '--k', linewidth=2, label='Observed profile')[0]
 plt.plot([min(self.xm), max(self.xm)], [self.MSL, self.MSL], '--b', linewidth=2)[0]
 
@@ -50,5 +50,5 @@ plt.ylabel('Water depth [m]', fontdict=font)
 
 plt.grid(True)
 plt.gca().invert_yaxis()
-plt.legend(loc='upper center', bbox_to_anchor=(0.5, 1.1), ncol=2)
+plt.legend(loc='upper center', bbox_to_anchor=(0.5, 1.1), ncol=3)
 plt.show()
