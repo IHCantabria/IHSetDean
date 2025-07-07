@@ -21,6 +21,4 @@ ihsetdean-tests
 
 Documentation is available at https://ihcantabria.github.io/IHSetDean
 
-## Credits
 
-Developed and maintained by Lim, Changbin @ IHCantabria.
