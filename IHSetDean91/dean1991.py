@@ -36,3 +36,9 @@ def dean1991(y: np.ndarray, A: float, sl: float = 0.0) -> np.ndarray:  # noqa: N
     y = np.asarray(y, dtype=float)
     h = A * np.power(y, 2.0 / 3.0) + sl
     return h
+
+
+
+def dean1991_rev(y: np.ndarray, A: float, sl: float = 0.0) -> np.ndarray:  
+
+    return ((y - sl) / A )** (3.0 / 2.0)
