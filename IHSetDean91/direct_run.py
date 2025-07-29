@@ -1,7 +1,6 @@
 from pathlib import Path
 import numpy as np
-from calibration import eqp_dean1991, cal_dean1991
-
+from calibration import cal_dean1991
 
 def run_model(doc, sl, d50, A=None, csv=None):
     # ---------------------------------------------------------------
@@ -22,28 +21,23 @@ def run_model(doc, sl, d50, A=None, csv=None):
     # 2. Ejecutar modelo según modo
     # ---------------------------------------------------------------
     
+    model = cal_dean1991(sl=sl, doc=doc, d50=d50)
+
     if csv:
-        csv_path = Path(csv)
-        model = cal_dean1991(csv_path, sl=sl, doc=doc)
-        model.calibrate().run_model()
-        print("A (calibrated) = ", model.A, "\nMetrics:", model.metrics())
-        x_obs, y_obs = model.x_obs, model.y_obs
-        x_dean, y_dean = model.x_dense, model.y_model
-
-        return x_obs, y_obs, x_dean, y_dean
-
+        # carrega o CSV, recalibra e retorna perfil calibrado
+        x_dean, y_dean = model.add_data(csv)
+        # observaçõe originais, recompondo coordenada absoluta
+        x_obs = model.x_obs + model.x_drift
+        y_obs = model.y_obs
     else:
-        if A is None and d50 is None:
-            raise ValueError("For non-CSV mode, you must specify --A or --d50.")
-        eqp = eqp_dean1991(sl=sl, doc=doc)
-        if A is not None:
-            x_dean, y_dean = eqp.dean_A(A)
-            print(f"A = {A:.6f}")
-            x_obs, y_obs = np.array([]), np.array([])  
-            
+        # sem dados medidos: arrays vazios
+        x_obs = np.array([])
+        y_obs = np.array([])
+        # escolhe perfil teórico por d50 ou por A
+        if d50 is not None:
+            x_dean, y_dean = model.from_d50(d50)
+        elif A is not None:
+            x_dean, y_dean = model.from_A(A)
         else:
-            x_dean, y_dean = eqp.dean_d50(d50)
-            print(f"A (D50={d50} mm) = {eqp.A:.6f}")
-            x_obs, y_obs = np.array([]), np.array([])
-
-        return x_obs, y_obs, x_dean, y_dean
+            raise ValueError("Você deve fornecer d50 ou A")
+    return x_obs, y_obs, x_dean, y_dean
