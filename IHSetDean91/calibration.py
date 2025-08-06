@@ -52,6 +52,17 @@ class cal_dean1991(object):
             return self.dean_A(self.A)
         else:
             return self.dean_A_rev(self.A)
+        
+    def shift_sl(self, new_sl: float):
+        """Atualiza SL, recalcula perfil Dean e retorna novo x0 (deslocamento)."""
+        self.sl = new_sl
+        if self.data:
+            self.recalc_x_dense()
+            x_dean, y_dean = self.dean_A(self.A)
+            return x_dean, y_dean, self.x_drift  # novo perfil + novo x0
+        else:
+            x_dean, y_dean = self.dean_A_rev(self.A)
+            return x_dean, y_dean, 0.0
            
     def add_data(self, path):
         df = pd.read_csv(path, dtype={"X": float, "Y": float})
