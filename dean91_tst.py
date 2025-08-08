@@ -168,7 +168,7 @@ class DeanTest:
             x0_max = float(np.nanmax(self.x_raw))
             init_x0 = float(getattr(self.model, "x_drift", self._x0_init))
 
-            ax_sl = plt.axes([0.11, 0.06, 0.76, 0.06])
+            ax_sl = plt.axes([0.09, 0.00, 0.7, 0.03])
             slider = Slider(
                 ax=ax_sl,
                 label="x0 (m) – alignment drift (no recalibration)",
