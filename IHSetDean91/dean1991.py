@@ -12,9 +12,9 @@
 from __future__ import annotations # type hints - avoids circular reference
 import numpy as np
 
-__all__ = ["dean1991"]  # Control what is exported with command: import *
+__all__ = ["dean1991", "dean1991_rev"]  # Control what is exported with command: import *
 
-def dean1991(y: np.ndarray, A: float, sl: float = 0.0) -> np.ndarray:  # noqa: N802
+def dean1991(x: np.ndarray, A: float, HTL: float = 0.0) -> np.ndarray:  # noqa: N802
     """Dean's static equilibrium profile (1991)..
 
     Parameters
@@ -33,12 +33,10 @@ def dean1991(y: np.ndarray, A: float, sl: float = 0.0) -> np.ndarray:  # noqa: N
         Profile elevation (m, positive upwards). Depth is
         *h* > 0.
     """
-    y = np.asarray(y, dtype=float)
-    h = A * np.power(y, 2.0 / 3.0) + sl
+    x = np.asarray(x, dtype=float)
+    h = A * np.power(x, 2.0 / 3.0) + HTL
     return h
 
-
-
-def dean1991_rev(y: np.ndarray, A: float, sl: float = 0.0) -> np.ndarray:  
-
-    return ((y - sl) / A )** (3.0 / 2.0)
+def dean1991_rev(h: np.ndarray, A: float, HTL: float = 0.0) -> np.ndarray:
+    """Inverso: x = ((h - HTL)/A)^(3/2)."""
+    return np.power((h - HTL) / A, 3.0 / 2.0)
