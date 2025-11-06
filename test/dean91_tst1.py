@@ -26,13 +26,11 @@ sys.path.insert(0, str(root_path))
 try:
     from calibration import cal_dean1991
 except Exception:
-    from IHSetDean91.calibration import cal_dean1991  # pragma: no cover
-
+    from src.IHSetDean91.calibration import cal_dean1991  # pragma: no cover
 
 WATER     = "#a6cee3"
 LIGHTSAND = "#f4dcb8"
 DARKSAND  = "#d6b07a"
-
 
 class DeanTestShiftOnly:
     def __init__(self):
@@ -118,8 +116,8 @@ class DeanTestShiftOnly:
 
         # (6) DoC marker/label
         self.doc_pt   = self.ax.scatter([self.Xdoc], [self.doc], s=38, c="k", zorder=6)
-        self.doc_anno = self.ax.annotate(f"DoC={self.doc:.1f} m", xy=(self.Xdoc, self.doc),
-                                         xytext=(6, -4), textcoords="offset points", color="k", zorder=6)
+        #self.doc_anno = self.ax.annotate(f"DoC={self.doc:.1f} m", xy=(self.Xdoc, self.doc),
+        #                                 xytext=(6, -4), textcoords="offset points", color="k", zorder=6)
 
         # Eixos
         self.ax.set_xlim(self.xmin, self.xmax)
@@ -142,7 +140,7 @@ class DeanTestShiftOnly:
         # Limites do shift: deixe algum espaço de segurança
         dx_min = (self.xmin - self.Xhtl) - 5.0
         dx_max = (self.xmax - self.Xhtl) + 5.0
-        self.slider = Slider(ax=ax_sl, label="Shift Δx (no recalibration)",
+        self.slider = Slider(ax=ax_sl, label="X0 Drift",
                              valmin=dx_min, valmax=dx_max,
                              valinit=self.dx_init, valstep=0.5)
 
@@ -254,8 +252,8 @@ class DeanTestShiftOnly:
 
         # DoC (do observado) permanece igual — mas realinhamos o texto se quiser
         self.doc_pt.set_offsets(np.c_[[self.Xdoc], [self.doc]])
-        self.doc_anno.set_text(f"DoC={self.doc:.1f} m")
-        self.doc_anno.xy = (self.Xdoc, self.doc)
+        #self.doc_anno.set_text(f"DoC={self.doc:.1f} m")
+        #self.doc_anno.xy = (self.Xdoc, self.doc)
 
         # Métricas vs CSV para a curva deslocada (faz sentido mudar com o shift)
         rmse = self._rmse_on_curve(x_shift, y_shift)
