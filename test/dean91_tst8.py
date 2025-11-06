@@ -18,11 +18,11 @@ sys.path.insert(0, str(root_path))
 try:
     from calibration import cal_dean1991
 except Exception:
-    from src.calibration import cal_dean1991  # pragma: no cover
+    from src.IHSetDean.calibration import cal_dean1991  # pragma: no cover
 try:
     from dean1991 import dean1991_rev
 except Exception:
-    from src.dean1991 import dean1991_rev  # pragma: no cover
+    from src.IHSetDean.dean1991 import dean1991_rev  # pragma: no cover
 
 # Paleta
 WATER = "#a6cee3"; LIGHTSAND = "#f4dcb8"; DARKSAND = "#d6b07a"

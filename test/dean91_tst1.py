@@ -26,7 +26,7 @@ sys.path.insert(0, str(root_path))
 try:
     from calibration import cal_dean1991
 except Exception:
-    from src.calibration import cal_dean1991  # pragma: no cover
+    from src.IHSetDean.calibration import cal_dean1991  # pragma: no cover
 
 WATER     = "#a6cee3"
 LIGHTSAND = "#f4dcb8"
