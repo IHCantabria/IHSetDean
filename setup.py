@@ -3,7 +3,8 @@ from setuptools import setup, find_packages
 setup(
     name='IHSetDean91',
     version='2.1.2',
-    packages=find_packages(),
+    package_dir={'': 'src'},  
+    packages=find_packages(where='src'), 
     include_package_data=True,
     install_requires=[
         'numpy',
